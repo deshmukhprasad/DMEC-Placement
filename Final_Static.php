@@ -1,4 +1,5 @@
 <?php
+	include 'statistics.php';
  	$conn = new mysqli("localhost", "root", "", "placement");
 	$result = $conn->query("SELECT image_path from slider");
 	$tpo_connect = $conn->query("SELECT * from tpo_connect");
@@ -133,7 +134,7 @@ catch(\PDOException $ex){
 
 		      // Instantiate and draw our chart, passing in some options.
 		      var chart = new google.visualization.BarChart(document.getElementById('chart_div3'));
-		      chart.draw(data, {title:'Year vs Company Visited',width: 400, height: 240});
+		      chart.draw(data, {title:'Year vs Company Visited'});
     	}
 
 		</script>
@@ -207,19 +208,19 @@ catch(\PDOException $ex){
     		<div class="connect_flex manage_height">
     				
 						<div class="card-body text-center highlights_content" id="HGLT">
-							<h2 class="card-title text-center" id="HGLT_Val">3.5LPA</h2>
+							<h2 class="card-title text-center" id="HGLT_Val"><?php echo average_package($conn) ?> LPA</h2>
 					    	<p class="card-text" id="HGLT_desc">Average Package</p>
 					    </div>
 						<div class="card-body text-center highlights_content" id="HGLT">
-							<h2 class="card-title text-center" id="HGLT_Val">6LPA</h2>
+							<h2 class="card-title text-center" id="HGLT_Val"><?php echo highest_package($conn) ?> LPA</h2>
 					    	<p class="card-text" id="HGLT_desc">Highest Package</p>
 					    </div>
 						<div class="card-body text-center highlights_content" id="HGLT">
-							<h2 class="card-title text-center" id="HGLT_Val">20+</h2>
+							<h2 class="card-title text-center" id="HGLT_Val"><?php echo company_visited($conn) ?>+</h2>
 					    	<p class="card-text" id="HGLT_desc">Companies Visiting</p>
 					    </div>
 						<div class="card-body text-center highlights_content" id="HGLT">
-							<h2 class="card-title text-center" id="HGLT_Val">50+</h2>
+							<h2 class="card-title text-center" id="HGLT_Val"><?php echo offer_number($conn) ?>+</h2>
 					    	<p class="card-text" id="HGLT_desc">Offers</p>
 					    </div>
     			
@@ -233,11 +234,11 @@ catch(\PDOException $ex){
     	<h1 class=" card-title text-center">Statistics</h1>
 		<div class="row">
 			<div class="column">
-				<div align="center"></div>
+				<div align="center">
 					<!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>	 -->
 					<div id="chart_div1"></div><br>
 					<div id="chart_div2"></div><br>
-					<div id="chart_div3">
+					<div id="chart_div3"></div>
 				</div>
 			</div>
 		</div>
